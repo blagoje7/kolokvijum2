@@ -1,0 +1,65 @@
+<form (submit)="dodaj()" [formGroup]="forma">
+    <div>
+      <label> Ime: <input name="ime" type="text" formControlName="ime"></label>
+    </div>
+    <div>
+      <label>Prezime: <input name="prezime" type="text" formControlName="prezime"></label>
+    </div>
+    <div>
+        <label>Datum Rodjenja: <input name="datumRodjenja" type="date" formControlName="datumRodjenja"></label>
+    </div>
+    <div>
+      <button type="submit" *ngIf="forma.value.id === null">Dodaj</button>
+      <button type="submit" *ngIf="forma.value.id != null">Izmeni</button>
+      <button type="submit" (click)="this.forma.reset()" *ngIf="forma.value.id != null">Odustani</button>
+    </div>
+  </form>
+  
+  <hr />
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Naziv</th>
+        <th>Cena</th>
+        <th>Akcije</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let o of osiguranici; index as i" >
+      <tr *ngIf="o.uklonjen == false">
+          <td>{{o["id"]}}</td>        
+          <td>{{o["ime"]}}</td>
+          <td>{{o["prezime"]}}</td>
+          <td>{{o["datumRodjenja"]}}</td>
+          <td>
+            <button (click)="odaberiZaBrisanje(i)">Brisanje</button>
+            <button (click)="odaberiZaIzmenu(o)">Izmena</button>
+          </td>
+      </tr>
+    </tbody>
+  </table>
+<hr>
+<h1>TABELA ZA BRISANJE</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Naziv</th>
+        <th>Cena</th>
+        <th>Akcije</th>
+      </tr>
+    </thead>
+    <tbody  *ngFor="let o of osiguranici; index as i">
+      <tr *ngIf="o.uklonjen == true">
+          <td>{{o["id"]}}</td>        
+          <td>{{o["ime"]}}</td>
+          <td>{{o["prezime"]}}</td>
+          <td>{{o["datumRodjenja"]}}</td>
+          <td>
+            <button (click)='ukloniOsiguranika(o["id"])'>Brisanje</button>
+            <button (click)="vratiOsiguranika(i)">Vrati</button>
+          </td>
+      </tr>
+    </tbody>
+  </table>

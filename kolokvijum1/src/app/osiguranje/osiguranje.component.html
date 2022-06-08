@@ -1,0 +1,62 @@
+<form (submit)="dodaj()" [formGroup]="forma">
+    <div>
+      <label> BrojPolise: <input name="brojPolise" type="text" formControlName="brojPolise"></label>
+    </div>
+    <div>
+        <label> Osiguranik: 
+        <select formControlName="idOsiguranika">
+            <option *ngFor="let osiguranik of osiguranici">{{osiguranik.id}}, {{osiguranik.ime}}</option>
+        </select>
+        </label>
+      </div>
+    <div>
+      <label> Naziv: <input name="naziv" type="text" formControlName="naziv"></label>
+    </div>
+    <div>
+        <label>Kamata: <input name="kamata" type="number" formControlName="kamata"></label>
+    </div>
+    <div>
+        <label>Cena: <input name="cena" type="number" formControlName="cena"></label>
+    </div>
+    <div>
+        <label>Orocenje: <input name="orocenje" type="date" formControlName="orocenje"></label>
+    </div>
+    <div>
+        
+    </div>
+    <div>
+      <button type="submit" *ngIf="forma.value.id === null">Dodaj</button>
+      <button type="submit" *ngIf="forma.value.id != null">Izmeni</button>
+      <button type="submit" (click)="this.forma.reset()" *ngIf="forma.value.id != null">Odustani</button>
+    </div>
+  </form>
+  
+  <hr />
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>BrojPolise</th>
+        <th>Naziv</th>
+        <th>Kamata</th>
+        <th>Cena</th>
+        <th>Orocenje</th>
+        <th>Akcije</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let o of osiguranja; index as i">
+      <tr>
+          <td>{{o["id"]}}</td>        
+          <td>{{o["brojPolise"]}}</td>
+          <td>{{o["naziv"]}}</td>
+          <td>{{o["kamata"]}}</td>
+          <td>{{o["cena"]}}</td>
+          <td>{{o["orocenje"]}}</td>
+          <td>
+            <button (click)="obrisi(o['id'])">Brisanje</button>
+            <button (click)="odaberiZaIzmenu(o)" >Izmena</button>
+          </td>
+      </tr>
+    </tbody>
+  </table>
